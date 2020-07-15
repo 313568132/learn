@@ -6,10 +6,12 @@
 
     <groupId>com.leon</groupId>
     <artifactId>learn</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
         <module>junitTest</module>
+        <module>bootWeb</module>
     </modules>
 
     <parent>
