@@ -26,7 +26,7 @@ public class Computer {
 4. 在Builder中创建设置函数，对Computer中那些可选参数进行赋值，返回值为Builder类型的实例
 5. 在Builder中创建一个`build()`方法，在其中构建Computer的实例并返回
 
-下面是代码的最终样子
+**下面是代码的最终样子**
 
 ```java
 @Data
@@ -93,3 +93,128 @@ class Test{
 
 >  执行结果:  Computer(cpu=cpu, ram=ram, usbCount=4, keyboard=Keyboard, display=Display)
 
+### 装饰者模式
+
+**java自身的装饰者模式典型的例子是:**
+
+java.io.BufferedReader;
+
+java.io.FileReader;
+
+java.io.Reader;
+
+spring中的aop也是装饰者的实现,自己的项目中主要用到log和 exception的控制.
+
+**下面举一个简单的例子:**
+
+我们去餐厅点餐,要了一碗面条,加了一些牛肉.吃了几口觉得缺点什么,这时候想加点辣椒.第一次加辣椒加的有点少,又加了一次,嗯美味.
+
+1. 首先要有一个面条的接口
+2. 添加一个圆面条类,实现面条接口
+3. 创建一个装饰者抽象类,实现面条接口
+4. 创建一个牛肉和辣椒类,继承装饰者类
+
+**具体代码**
+
+面条的接口
+
+```java
+public interface Noodle {
+    public void cook();
+}
+```
+
+圆面条类,实现面条接口
+
+```java
+public class CircleNoodle implements Noodle{
+    @Override
+    public void cook() {
+        System.out.println("circle noodle");
+    }
+}
+```
+
+装饰者抽象类
+
+```java
+public abstract class NoodleDecorator implements Noodle {
+
+    public Noodle noodle;
+
+    public NoodleDecorator(Noodle noodle){
+        this.noodle = noodle;
+    }
+
+    @Override
+    public void cook() {
+        noodle.cook();
+    }
+}
+```
+
+牛肉和辣椒类,实现装饰者类
+
+```java
+// 牛肉类
+public class BeefNoodleDecorator extends NoodleDecorator {
+
+    public BeefNoodleDecorator(Noodle noodle) {
+        super(noodle);
+    }
+
+    @Override
+    public void cook() {
+        System.out.println();
+        noodle.cook();
+        System.out.println("BeefNoodleDecorator");
+    }
+}
+// 辣椒类
+public class SpicyNoodleDecorator extends NoodleDecorator {
+
+    public SpicyNoodleDecorator(Noodle noodle) {
+        super(noodle);
+    }
+
+    @Override
+    public void cook() {
+        super.cook();
+        System.out.println("SpicyNoodleDecorator");
+    }
+}
+```
+
+测试类
+
+```java
+public static void main(String[] args) {
+    CircleNoodle circleNoodle = new CircleNoodle();
+    circleNoodle.cook();
+
+    BeefNoodleDecorator beefNoodleDecorator = new BeefNoodleDecorator(circleNoodle);
+    beefNoodleDecorator.cook();
+
+    SpicyNoodleDecorator spicyNoodleDecorator = new SpicyNoodleDecorator(beefNoodleDecorator);
+    spicyNoodleDecorator.cook();
+
+    SpicyNoodleDecorator spicyNoodleDecorator2 = new SpicyNoodleDecorator(spicyNoodleDecorator);
+    spicyNoodleDecorator2.cook();
+}
+```
+
+> 测试结果
+>
+> circle noodle
+>
+> circle noodle
+> BeefNoodleDecorator
+>
+> circle noodle
+> BeefNoodleDecorator
+> SpicyNoodleDecorator
+>
+> circle noodle
+> BeefNoodleDecorator
+> SpicyNoodleDecorator
+> SpicyNoodleDecorator
