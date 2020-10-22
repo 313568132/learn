@@ -12,7 +12,8 @@
     <modules>
         <module>junitTest</module>
         <module>bootWeb</module>
-        <module>temp</module>
+        <module>designPattern</module>
+        <module>api</module>
     </modules>
 
     <parent>
