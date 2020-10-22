@@ -13,7 +13,7 @@
         <module>junitTest</module>
         <module>bootWeb</module>
         <module>designPattern</module>
-        <module>api</module>
+        <module>learnApi</module>
     </modules>
 
     <parent>
