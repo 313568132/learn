@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="userService" class="com.leon.springl.service.UserService" init-method="init" destroy-method="destroy">
+        <property name="name" value="三郎"></property>
+    </bean>
+
+    <bean id="animalService" class="com.leon.springl.service.AnimalService" init-method="init" destroy-method="destroy">
+        <property name="name" value="敲敲"></property>
+    </bean>
+
+    <bean id="myBeanPostProcesser" class="com.leon.springl.processer.MyBeanPostProcesser"></bean>
+</beans>
