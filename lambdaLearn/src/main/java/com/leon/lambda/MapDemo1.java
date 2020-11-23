@@ -4,6 +4,7 @@ import com.leon.api.vo.Student;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MapDemo1 {
@@ -54,5 +55,19 @@ public class MapDemo1 {
                     s.setName(xue);
                 }).collect(Collectors.toList());
         System.out.println(xue1);
+
+        /**
+         * list转为map,多个key相同时
+         */
+        Map<Integer, Student> map = students.stream()
+                .collect(Collectors.toMap(Student::getAge, Student -> Student,(key1,key2)->key2));
+        System.out.println(map);
+
+        /**
+         * list转为map, 有相同的key时会报错: java.lang.IllegalStateException:Duplicate key
+         */
+        Map<Integer, String> map2 = students.stream()
+                .collect(Collectors.toMap(Student::getAge, Student::getName));
+        System.out.println(map2);
     }
 }
