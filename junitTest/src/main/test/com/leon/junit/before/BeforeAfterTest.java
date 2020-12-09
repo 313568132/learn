@@ -1,10 +1,11 @@
 package com.leon.junit.before;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BeforeAfterTest {
 
@@ -13,10 +14,15 @@ public class BeforeAfterTest {
         System.out.println("test()");
     }
 
+    @Test
+    public void test2(){
+        System.out.println("test2()");
+    }
+
     /**
      * @Before 必须是public类型的
      */
-    @Before
+    @BeforeEach
     public void init(){
         System.out.println("init()");
     }
@@ -24,7 +30,7 @@ public class BeforeAfterTest {
     /**
      * @BeforeClass 必须是public类型并且是static
      */
-    @BeforeClass
+    @BeforeAll
     public static void initClass(){
         System.out.println("initClass()");
     }
@@ -32,7 +38,7 @@ public class BeforeAfterTest {
     /**
      * @After 必须是public类型的
      */
-    @After
+    @AfterEach
     public void distory(){
         System.out.println("distory()");
     }
@@ -40,7 +46,7 @@ public class BeforeAfterTest {
     /**
      * @AfterClass 必须是public类型并且是static
      */
-    @AfterClass
+    @AfterAll
     public static void distoryClass(){
         System.out.println("distoryClass()");
     }
