@@ -10,12 +10,13 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
+        <module>learnApi</module>
         <module>junitTest</module>
         <module>bootWeb</module>
         <module>designPattern</module>
-        <module>learnApi</module>
         <module>springLearn</module>
         <module>lambdaLearn</module>
+        <module>esWeb</module>
     </modules>
 
     <parent>
@@ -23,8 +24,15 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.5.RELEASE</version>
     </parent>
-
+    <properties>
+        <elasticsearch.version>7.8.1</elasticsearch.version>
+    </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.leon</groupId>
+            <artifactId>learnApi</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -35,11 +43,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.73</version>
         </dependency>
-        <dependency>
-            <groupId>com.leon</groupId>
-            <artifactId>learnApi</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
     </dependencies>
     <!-- 多环境打包 -->
     <profiles>
