@@ -28,11 +28,11 @@
         <elasticsearch.version>7.8.1</elasticsearch.version>
     </properties>
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.leon</groupId>
             <artifactId>learnApi</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
