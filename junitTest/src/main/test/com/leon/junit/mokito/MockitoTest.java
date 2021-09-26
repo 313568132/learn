@@ -39,13 +39,16 @@ public class MockitoTest {
         //
         String result = iterator.next() + " " + iterator.next() + " " + iterator.next() + " " + iterator.next();
         // 验证
-        assertEquals("hello world my my1",result);
+        assertEquals("hello world my my",result);
     }
 
     @Test
     public void whenThenException() {
         // Executable closureContainingCodeToTest = () -> throw new IllegalArgumentException("a message");
         // assertThrows(IllegalArgumentException.class, closureContainingCodeToTest, "a message");
+        assertThrows(RuntimeException.class,()-> {
+           throw new RuntimeException("this is a run time exception test");
+        });
     }
 
     @Test
