@@ -17,6 +17,9 @@
         <module>springLearn</module>
         <module>lambdaLearn</module>
         <module>esWeb</module>
+        <module>hutoolTest</module>
+        <module>httpclient</module>
+        <module>threadTest</module>
     </modules>
 
     <parent>
