@@ -1,6 +1,9 @@
 package com.leon.designMode.builder;
 
+import cn.hutool.core.lang.Console;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
+
 
 @Data
 public class Computer {
@@ -60,5 +63,9 @@ class Test{
                 .setKeyboard("Keyboard")
                 .build();
         System.out.println(computer);
+        Console.log(computer);
+
+        System.out.println(StringUtils.isNumeric("25"));
+        System.out.println(StringUtils.isNumeric("25.2"));
     }
 }

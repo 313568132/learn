@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="1 seconds">
+
+    <contextName>logback</contextName>
+    <property name="file_path" value="/data/logs"/>
+    <property name="app" value="muses"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%file:%line] -----> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${file_path}/${app}/rolling/${app}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_path}/${app}/rolling/${app}_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <!--
+            %d: 日期
+            %contextName: 不知道看看
+            %thread: 所属线程
+            %-5level: 错误等级
+            %logger{36}: 表示logger名字最长36个字符，否则按照句点分割。
+            %file: 类名
+            %line: 错误行数
+            %msg: 错误具体信息
+            %n: 换行
+            -->
+            <pattern>%date [%thread] %level %logger{36} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--如果只是想要 Error 级别的日志，那么需要过滤一下，默认是 info 级别的，ThresholdFilter-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>Error</level>
+        </filter>
+        <!--日志名称，如果没有File 属性，那么只会使用FileNamePattern的文件路径规则
+            如果同时有<File>和<FileNamePattern>，那么当天日志是<File>，明天会自动把今天
+            的日志改名为今天的日期。即，<File> 的日志都是当天的。
+        -->
+        <File>${file_path}/${app}/error/${app}.log</File>
+        <!--滚动策略，按照时间滚动 TimeBasedRollingPolicy-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间-->
+            <FileNamePattern>${file_path}/${app}/error/${app}_%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!--只保留最近90天的日志-->
+            <maxHistory>90</maxHistory>
+            <!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志-->
+            <!--<totalSizeCap>1GB</totalSizeCap>-->
+        </rollingPolicy>
+        <!--日志输出编码格式化-->
+        <encoder>
+            <charset>UTF-8</charset>
+            <!--
+            %d: 日期
+            %thread: 所属线程
+            %-5level: 错误等级
+            %logger{36}: 表示logger名字最长36个字符，否则按照句点分割。
+            %file: 类名
+            %line: 错误行数
+            %msg: 错误具体信息
+            %n: 换行
+            -->
+            <pattern>%d [%thread] %-5level %logger{36} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- druid配置 -->
+    <!--<logger name="druid.sql.Statement" level="debug" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </logger>
+    <logger name="druid.sql.ResultSet" level="debug" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </logger>-->
+    <!-- <logger name="com.ecms.ecframe.datapermclient.interceptor.MybatisDataPermInterceptor" level="debug" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>-->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+        <appender-ref ref="fileErrorLog"/>
+    </root>
+
+</configuration>

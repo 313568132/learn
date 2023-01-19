@@ -1,7 +1,9 @@
 package com.leon.esweb.test;
 
+import com.alibaba.excel.EasyExcel;
+import com.leon.api.vo.ExcelDemo;
+import com.leon.esweb.service.ExcelESDemoListener;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.elasticsearch.action.admin.indices.create.CreateIndexAction;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.management.Query;
 import java.io.IOException;
 import java.util.Map;
 
@@ -26,17 +27,29 @@ import java.util.Map;
  * @date ：2021/1/17 13:34
  */
 @SpringBootTest
+//@ExtendWith(SpringExtension.class)
+//@ContextConfiguration(classes = {EsConfig.class, ExcelESDemoListener.class})
 public class EsTest {
 
     @Autowired
     @Qualifier("restHighLevelClient")
     public RestHighLevelClient client;
 
+    @Autowired
+    public ExcelESDemoListener excelESDemoListener;
+
     @Test
     public void isExsitsIndex() throws IOException {
         GetRequest getRequest = new GetRequest("kms_muses_wish_sku", "5f30f138853d5f85fb4874d4#:2647:US:");
         boolean exists = client.exists(getRequest, RequestOptions.DEFAULT);
         System.out.println(exists);
+    }
+
+    @Test
+    public void es7ExportExcel() {
+        String fileName = "C:\\Users\\Administrator\\Desktop\\es7.xlsx";
+        // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
+        EasyExcel.read(fileName, ExcelDemo.class, excelESDemoListener).sheet().doRead();
     }
 
     @Test
@@ -65,7 +78,7 @@ public class EsTest {
         searchSourceBuilder.size(3);
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = client.search(searchRequest,RequestOptions.DEFAULT);
-        System.out.println("響應時間"+ response.getTook());
+        System.out.println("响应时间"+ response.getTook());
         SearchHits SearchHits = response.getHits();
         SearchHit[] searchHit = SearchHits.getHits();
         for (SearchHit hit : searchHit) {
