@@ -120,4 +120,15 @@ public class ExcelESDemoListener extends AnalysisEventListener<ExcelDemo> {
         }
         return excelDemos;
     }
+
+    public static void main(String[] args) {
+        QueryBuilder qb = QueryBuilders.termQuery("descSource" ,QueryParser.escape("aaaaaa")).boost(1000);
+        QueryBuilder qb2 = QueryBuilders.matchPhraseQuery("descSource" ,QueryParser.escape("aaaaaa"));
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        boolQuery.should(qb).should(qb2);
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
+                .must(boolQuery);
+
+        System.out.println(boolQueryBuilder.toString());
+    }
 }
