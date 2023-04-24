@@ -9,6 +9,8 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringEncoder;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class HelloWorldClient {
     public static void main(String[] args) throws InterruptedException {
@@ -35,5 +37,11 @@ public class HelloWorldClient {
         Channel channel = sync.channel();
         // 15. 发送数据
         channel.writeAndFlush("hello2");
+
+        AtomicInteger integer = new AtomicInteger();
+        integer.getAndIncrement();
+        ReentrantLock lock = new ReentrantLock();
+        lock.lock();
+        lock.unlock();
     }
 }

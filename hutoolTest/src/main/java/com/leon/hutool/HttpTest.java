@@ -24,9 +24,9 @@ public class HttpTest {
         list.stream().parallel().forEach(System.out::println);
 
 
-
-
-
+        HttpRequest request = HttpRequest.get("https://www.google.com.hk/webhp?hl=zh-CN&sourceid=cnhp&gws_rd=ssl");
+        HttpResponse response = request.execute();
+        System.out.println(response.body());
 
 
         String url = "http://192.168.103.13:8094/musesBackend/commodityApi/queryCommodityCn";

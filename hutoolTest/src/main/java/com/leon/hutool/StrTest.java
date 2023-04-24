@@ -1,6 +1,6 @@
 package com.leon.hutool;
 
-import cn.hutool.crypto.digest.MD5;
+import cn.hutool.core.lang.Console;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -11,11 +11,24 @@ public class StrTest {
 
 
     public static void main(String[] args) {
-        String[] arr = {"0","0.027","0.1 + 77.00 GBP / 100 kg","99.00 GBP / 100 kg","0.2 + 99.00 GBP / 100 kg + 99.00 GBP" ,"0.1+9.00 GBP / 100 kg+9.00 GBP"};
+
+        String test = " 无 结 果 ";
+
+        Console.log(StringUtils.trim(test));
+        Console.log(test.trim());
+
+        String test2 = null;
+
+        Console.log(StringUtils.trim(test2));
+        Console.log(test2.trim());
+        /*String[] arr = {"0","0.027","0.1 + 77.00 GBP / 100 kg","99.00 GBP / 100 kg","0.2 + 99.00 GBP / 100 kg + 99.00 GBP" ,"0.1+9.00 GBP / 100 kg+9.00 GBP"};
         for (String str: arr){
             String result = rateMultiply100(str);
             System.out.println(str + "=================> " + result);
         }
+
+        int i= 1/0;
+        System.out.println(i);*/
     }
 
     /**
